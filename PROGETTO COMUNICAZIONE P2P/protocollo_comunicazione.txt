@@ -1,0 +1,37 @@
+PORTA: 12345
+Gestione porte separate
+	Ascolto sulla porta 12345
+	Invio sulla porta "random"
+
+Apertura
+
+fase 1:
+	a;NOME_MITTENTE;
+	(chiamata NON bloccante)
+	
+fase 2:
+se posso/voglio accettare la connessione -->
+	y;NOME_DESTINATARIO;
+	
+se non posso/voglio accettare la connessione -->
+	n;
+
+fase 3:
+	y;
+	n;
+	
+SE HO UNA CONNESSIONE IN ATTESA DI RISPOSTA E MI ARRIVA UN'ALTRA CONNESSIONE LA ANNULLO A PRESCINDERE
+SE RICHIEDO MA NON RICEVO RISPOSTA ANNULLO
+
+
+
+Dialogo
+
+	m;CONTENUTO_MESSAGGIO;
+PREVEDERE LA POSSIBILITA' DI ESPANDERE  I "COMANDI" --> TANTE classi
+SE RICEVO UN MESSAGGIO DA UNA COMUNICAZIONE GIA' CHIUSA O MAI APERTA --> invio "c;"
+
+
+Chiusura
+
+	c;
