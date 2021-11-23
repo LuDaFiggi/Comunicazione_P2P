@@ -20,11 +20,10 @@ import javax.swing.JOptionPane;
 public class ThRicevi extends Thread {
 
     Condivisa condivisa;
-    int dimensione_buffer;
     GestionePacchetti gp;
 
-    public ThRicevi(int dimensione_buffer) throws SocketException {
-        this.condivisa = new Condivisa(dimensione_buffer);
+    public ThRicevi(Condivisa condivisa) throws SocketException {
+        this.condivisa = condivisa;
         gp = new GestionePacchetti(condivisa);
     }
 

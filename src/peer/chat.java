@@ -19,9 +19,10 @@ public class chat extends javax.swing.JFrame {
 
     /**
      * Creates new form chat
-     */
-    public chat() {
+     */    
+    public chat(String nome) {
         initComponents();
+        lbl_nome.setText(nome);
     }
 
     /**
@@ -37,6 +38,7 @@ public class chat extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        lbl_nome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat");
@@ -49,15 +51,19 @@ public class chat extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
+        lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        lbl_nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)))
@@ -67,7 +73,9 @@ public class chat extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -81,16 +89,6 @@ public class chat extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public int messaggio(String mex, boolean controllo) {
-        int azione = -1;
-        if (controllo == true) {
-            azione = JOptionPane.showConfirmDialog(null, mex + " vuole inviarti un messaggio", "ATTENZIONE!", 0, 1, null);
-        }
-        else
-            JOptionPane.showMessageDialog(this, "Hai rifiutato " + mex);
-            //azione = JOptionPane.showConfirmDialog(null, "Hai rifiutato " +mex, 0, 1, null);
-        return azione;
-    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -119,14 +117,8 @@ public class chat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new chat().setVisible(true);
-                ThRicevi th_ricevi;
-                try {
-                    th_ricevi = new ThRicevi(1500);
-                    th_ricevi.start();
-                } catch (SocketException ex) {
-                    Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                //new chat("").setVisible(true);
+                
 
             }
         });
@@ -137,5 +129,6 @@ public class chat extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lbl_nome;
     // End of variables declaration//GEN-END:variables
 }

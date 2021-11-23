@@ -14,54 +14,72 @@ import java.net.SocketException;
  * @author bonfissuto_luca
  */
 public class Condivisa {
-
+    
+    private int sender_port;
+    private int receiver_port;
     private DatagramSocket receiver;
+    private DatagramSocket sender;
     private DatagramPacket packet;
     byte[] buffer;
     String ip;
     int dimensione;
-    chat c;
+    Connessione c;
+    chat chat;
     boolean occupato;
 
-    public Condivisa(int dimensione) throws SocketException {
+    public Condivisa(int dimensione, int r_port, int s_port) throws SocketException {
         this.dimensione = dimensione;
-        receiver = new DatagramSocket(12345);
+        receiver = new DatagramSocket(r_port);
+        sender = new DatagramSocket(/*s_port*/);
+        sender_port = s_port;
+        receiver_port = r_port;
         buffer = new byte[this.dimensione];
         packet = new DatagramPacket(buffer, buffer.length);
         ip = "";
-        c = new chat();
+        c = new Connessione();
+        chat = new chat("");
         occupato = false;
     }
 
-    public boolean isOccupato() {
+    public synchronized boolean isOccupato() {
         return occupato;
     }
 
-    public void setOccupato(boolean occupato) {
+    public synchronized void setOccupato(boolean occupato) {
         this.occupato = occupato;
     }
     
-    public void azzera_buffer() {
+    public synchronized void reset_port(DatagramSocket port, int n_port) throws SocketException{
+        port.close();
+        port = new DatagramSocket(n_port);
+    }
+    
+    public synchronized void azzera_buffer() {
         buffer = new byte[this.dimensione];
     }
 
-    public void setBuffer(byte[] buffer) {
+    public synchronized void setBuffer(byte[] buffer) {
         this.buffer = buffer;
     }
 
-    public byte[] getBuffer() {
+    public synchronized byte[] getBuffer() {
         return buffer;
     }
 
-    public DatagramSocket getReceiver() {
+     public synchronized DatagramSocket getReceiver() {
         return receiver;
     }
 
-    public void setPacket(DatagramPacket packet) {
+    public DatagramSocket getSender() {
+        return sender;
+    }
+     
+
+    public synchronized void setPacket(DatagramPacket packet) {
         this.packet = packet;
     }
 
-    public DatagramPacket getPacket() {
+    public synchronized DatagramPacket getPacket() {
         return packet;
     }
 
@@ -73,8 +91,19 @@ public class Condivisa {
         return ip;
     }
 
-    public chat getC() {
+    public Connessione getC() {
         return c;
     }
 
+    public void setChat(String nome) {
+        this.chat = new chat(nome);
+    }
+    public chat getChat() {
+        return chat;
+    }
+
+    public int getSender_port() {
+        return sender_port;
+    }
+    
 }
