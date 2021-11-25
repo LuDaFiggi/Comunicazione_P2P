@@ -40,13 +40,14 @@ public class GestionePacchetti {
         if (campi[0].equals("a") && condivisa.isOccupato() == false) {
             if (condivisa.getC().messaggio(campi[1], true) == 0) {
                 Connessione conn = new Connessione();
-                invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1),"y",conn.getNome());
+                invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "y", conn.getNome());
                 condivisa.setOccupato(true);
                 condivisa.getC().setVisible(false);
                 condivisa.setChat(campi[1].trim());
                 condivisa.getChat().show();
             } else {
                 condivisa.getC().messaggio("Hai rifiutato " + campi[1], false);
+                invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "n", "");
             }
         } else if (campi[0].equals("y")) {
             condivisa.setOccupato(true);
@@ -57,9 +58,12 @@ public class GestionePacchetti {
             condivisa.setOccupato(false);
             condivisa.getC().messaggio("il mittente ha rifiutato il messaggio", false);
             condivisa.reset_port(condivisa.getReceiver(), 12346);
+        } else if (campi[0].equals("m")) {
+
         } else {
             // ritorna messaggio di no
             System.out.println(campi[1] + " ha provato a contattarti mentre eri occupato");
+            invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "n", "");
         }
     }
 

@@ -6,7 +6,10 @@
 package peer;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -22,6 +25,7 @@ public class Connessione extends javax.swing.JFrame {
      * Creates new form Connessione
      */
     static Condivisa condivisa;
+
     public Connessione() {
         initComponents();
     }
@@ -35,22 +39,14 @@ public class Connessione extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbl_nome = new javax.swing.JLabel();
-        btn_nome = new javax.swing.JButton();
         btn_connetti = new javax.swing.JButton();
         lbl_connettiti = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txt_ip = new javax.swing.JTextField();
+        txt_nome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_nome.setText("Luca");
-        lbl_nome.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        btn_nome.setText("Cambia nome");
 
         btn_connetti.setText("CONNETTITI");
         btn_connetti.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +66,9 @@ public class Connessione extends javax.swing.JFrame {
         txt_ip.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_ip.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_nome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,33 +76,31 @@ public class Connessione extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_connettiti, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 156, Short.MAX_VALUE)
-                            .addComponent(txt_ip))
-                        .addGap(61, 61, 61))
+                        .addGap(0, 70, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lbl_connettiti, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox1, 0, 156, Short.MAX_VALUE)
+                                    .addComponent(txt_ip))
+                                .addGap(61, 61, 61))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btn_connetti, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(116, 116, 116))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_nome)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(btn_connetti, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
+                        .addComponent(txt_nome)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_connettiti, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -113,26 +110,26 @@ public class Connessione extends javax.swing.JFrame {
                     .addComponent(txt_ip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(btn_connetti)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(btn_nome)
-                .addContainerGap())
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_connettiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_connettiActionPerformed
-        Condivisa condivisa;
+        String messaggio = "a;" + txt_nome.getText();
+        byte buffer[] = messaggio.getBytes();
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         try {
-            condivisa = this.condivisa;
-            GestionePacchetti gp = new GestionePacchetti(condivisa);
-            gp.invia_pacchetto(txt_ip.getText(), "a", lbl_nome.getText());
-        } catch (SocketException ex) {
+            InetAddress indirizzo = InetAddress.getByName(txt_ip.getText());
+            packet.setAddress(indirizzo);
+            packet.setPort(condivisa.getSender_port());
+            condivisa.getSender().send(packet);
+        } catch (UnknownHostException ex) {
             Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //btn_connetti.setEnabled(false);
     }//GEN-LAST:event_btn_connettiActionPerformed
 
     /**
@@ -150,7 +147,7 @@ public class Connessione extends javax.swing.JFrame {
     }
 
     public String getNome() {
-        return lbl_nome.getText();
+        return txt_nome.getText();
     }
 
     public static void main(String args[]) {
@@ -183,7 +180,7 @@ public class Connessione extends javax.swing.JFrame {
                 new Connessione().setVisible(true);
                 ThRicevi th_ricevi;
                 try {
-                    condivisa = new Condivisa(1500, 12345, 12346);
+                    condivisa = new Condivisa(1500, 12346, 12345);
                     th_ricevi = new ThRicevi(condivisa);
                     th_ricevi.start();
                 } catch (SocketException ex) {
@@ -195,11 +192,10 @@ public class Connessione extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_connetti;
-    private javax.swing.JButton btn_nome;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_connettiti;
-    private javax.swing.JLabel lbl_nome;
     private javax.swing.JTextField txt_ip;
+    private javax.swing.JTextField txt_nome;
     // End of variables declaration//GEN-END:variables
 }
