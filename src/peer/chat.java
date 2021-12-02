@@ -5,24 +5,41 @@
  */
 package peer;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import static peer.Connessione.condivisa;
 
 /**
  *
- * @author bonfissuto_luca
+ * @author lucab
  */
 public class chat extends javax.swing.JFrame {
 
     /**
-     * Creates new form chat
-     */    
+     * Creates new form NewJFrame
+     */
     public chat(String nome) {
         initComponents();
         lbl_nome.setText(nome);
+        panel.setLayout(new GridBagLayout());
+
     }
 
     /**
@@ -34,39 +51,52 @@ public class chat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btn_invio = new javax.swing.JButton();
         lbl_nome = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txt_messaggio = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        btn_close = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Chat");
         setResizable(false);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jButton1.setText("jButton1");
+        btn_invio.setText("Invia");
+        btn_invio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_invioActionPerformed(evt);
+            }
+        });
 
         lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         lbl_nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        txt_messaggio.setColumns(20);
+        txt_messaggio.setLineWrap(true);
+        txt_messaggio.setRows(5);
+        jScrollPane2.setViewportView(txt_messaggio);
+
+        btn_close.setText("Chiudi connessione");
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_closeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_close, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_nome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btn_invio, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -74,22 +104,63 @@ public class chat extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_invio, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_close)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_invioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invioActionPerformed
+        String messaggio = "m;" + txt_messaggio.getText().trim();
+        byte buffer[] = messaggio.getBytes();
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+        try {
+            InetAddress indirizzo = InetAddress.getByName(condivisa.getIP());
+            packet.setAddress(indirizzo);
+            packet.setPort(condivisa.getSender_port());
+            condivisa.getSender().send(packet);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        condivisa.setFrame(this);
+        JTextField mex = new JTextField();
+        mex.setText("ciao =)");
+        gbc.gridx = 1;
+        gbc.gridy = y;
+        y++;
+        panel.add(mex, gbc);
+        jScrollPane1.getViewport().add(panel);
+    }//GEN-LAST:event_btn_invioActionPerformed
+
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
+        String messaggio = "c;";
+        byte buffer[] = messaggio.getBytes();
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+        try {
+            InetAddress indirizzo = InetAddress.getByName(condivisa.getIP());
+            packet.setAddress(indirizzo);
+            packet.setPort(condivisa.getSender_port());
+            condivisa.getSender().send(packet);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_closeActionPerformed
+
     /**
      * @param args the command line arguments
      */
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -113,22 +184,47 @@ public class chat extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 //new chat("").setVisible(true);
-                
-
             }
         });
+        ThGrafica grafica = new ThGrafica(condivisa);
+        grafica.start();
+        //grafica.join();
+
+    }
+    JPanel panel = new JPanel();
+    GridBagConstraints gbc = new GridBagConstraints();
+    int y = 0;
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g); //To change body of generated methods, choose Tools | Templates.
+        condivisa.setFrame(this);
+        JTextField messaggio = new JTextField();
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        y++;
+        if (condivisa.getMessaggio() != "") {
+            messaggio.setText(condivisa.getMessaggio());
+            panel.add(messaggio, gbc);
+            jScrollPane1.getViewport().add(panel);
+        }
+
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_close;
+    private javax.swing.JButton btn_invio;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbl_nome;
+    private javax.swing.JTextArea txt_messaggio;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,21 +5,17 @@
  */
 package peer;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-
 /**
  *
- * @author bonfissuto_luca
+ * @author lucab
  */
 public class Peer {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
-        
+    public static void main(String[] args) {
+        // TODO code application logic here
     }
-
+    
 }

@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
 
 /**
  *
- * @author bonfissuto_luca
+ * @author lucab
  */
 public class GestionePacchetti {
 
@@ -33,6 +33,8 @@ public class GestionePacchetti {
     }
 
     public void controlla_pacchetto() throws IOException {
+        condivisa.azzera_buffer();
+        condivisa.setPacket(new DatagramPacket(condivisa.getBuffer(), condivisa.getBuffer().length));
         condivisa.getReceiver().receive(condivisa.getPacket());
         String str = new String(condivisa.getPacket().getData());
         System.out.println(str);
@@ -41,6 +43,7 @@ public class GestionePacchetti {
             if (condivisa.getC().messaggio(campi[1], true) == 0) {
                 Connessione conn = new Connessione();
                 invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "y", conn.getNome());
+                condivisa.setIP(condivisa.getPacket().getAddress().toString().substring(1));
                 condivisa.setOccupato(true);
                 condivisa.getC().setVisible(false);
                 condivisa.setChat(campi[1].trim());
@@ -49,9 +52,12 @@ public class GestionePacchetti {
                 condivisa.getC().messaggio("Hai rifiutato " + campi[1], false);
                 invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "n", "");
             }
+        } else if (campi[0].equals("y") && campi[0]!="") {
+            invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "y", "");
         } else if (campi[0].equals("y")) {
             condivisa.setOccupato(true);
             condivisa.getC().setVisible(false);
+            condivisa.setIP(condivisa.getPacket().getAddress().toString().substring(1));
             condivisa.setChat(campi[1].trim());
             condivisa.getChat().show();
         } else if (campi[0].equals("n")) {
@@ -59,12 +65,14 @@ public class GestionePacchetti {
             condivisa.getC().messaggio("il mittente ha rifiutato il messaggio", false);
             condivisa.reset_port(condivisa.getReceiver(), 12346);
         } else if (campi[0].equals("m")) {
-
+            condivisa.setMessaggio(campi[1].trim());
+        } else if (campi[0].equals("c")) {
+            //chiude finestra chat
+            //condivisa.getChat().close();
         } else {
             // ritorna messaggio di no
             System.out.println(campi[1] + " ha provato a contattarti mentre eri occupato");
             invia_pacchetto(condivisa.getPacket().getAddress().toString().substring(1), "n", "");
         }
     }
-
 }

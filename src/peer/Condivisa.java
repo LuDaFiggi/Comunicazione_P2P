@@ -8,13 +8,13 @@ package peer;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import javax.swing.JFrame;
 
 /**
  *
- * @author bonfissuto_luca
+ * @author lucab
  */
 public class Condivisa {
-    
     private int sender_port;
     private int receiver_port;
     private DatagramSocket receiver;
@@ -26,6 +26,9 @@ public class Condivisa {
     Connessione c;
     chat chat;
     boolean occupato;
+    String IP;
+    JFrame frame;
+    String messaggio;
 
     public Condivisa(int dimensione, int r_port, int s_port) throws SocketException {
         this.dimensione = dimensione;
@@ -39,6 +42,33 @@ public class Condivisa {
         c = new Connessione();
         chat = new chat("");
         occupato = false;
+        IP = "";
+        messaggio = "";
+    }
+
+    public void setMessaggio(String messaggio) {
+        this.messaggio = "";
+        this.messaggio = messaggio;
+    }
+
+    public String getMessaggio() {
+        return messaggio;
+    }
+    
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setIP(String IP) {
+        this.IP = IP;
+    }
+
+    public String getIP() {
+        return IP;
     }
 
     public synchronized boolean isOccupato() {
@@ -73,8 +103,7 @@ public class Condivisa {
     public DatagramSocket getSender() {
         return sender;
     }
-     
-
+    
     public synchronized void setPacket(DatagramPacket packet) {
         this.packet = packet;
     }
@@ -105,5 +134,4 @@ public class Condivisa {
     public int getSender_port() {
         return sender_port;
     }
-    
 }

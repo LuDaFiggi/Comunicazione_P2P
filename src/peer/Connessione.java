@@ -12,7 +12,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,7 +24,6 @@ public class Connessione extends javax.swing.JFrame {
      * Creates new form Connessione
      */
     static Condivisa condivisa;
-
     public Connessione() {
         initComponents();
     }
@@ -39,19 +37,20 @@ public class Connessione extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_connetti = new javax.swing.JButton();
+        btn_connetti1 = new javax.swing.JButton();
         lbl_connettiti = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txt_ip = new javax.swing.JTextField();
-        txt_nome = new javax.swing.JTextField();
+        lbl_nome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        btn_connetti.setText("CONNETTITI");
-        btn_connetti.addActionListener(new java.awt.event.ActionListener() {
+        btn_connetti1.setText("CONNETTITI");
+        btn_connetti1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_connettiActionPerformed(evt);
+                btn_connetti1ActionPerformed(evt);
             }
         });
 
@@ -66,40 +65,38 @@ public class Connessione extends javax.swing.JFrame {
         txt_ip.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_ip.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        txt_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txt_nome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lbl_nome.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbl_nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_nome.setText("Luca");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 70, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lbl_connettiti, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, 156, Short.MAX_VALUE)
-                                    .addComponent(txt_ip))
-                                .addGap(61, 61, 61))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btn_connetti, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(116, 116, 116))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txt_nome)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_connettiti, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox1, 0, 156, Short.MAX_VALUE)
+                            .addComponent(txt_ip))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btn_connetti1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116))))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lbl_nome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_connettiti, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,15 +106,15 @@ public class Connessione extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txt_ip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addComponent(btn_connetti)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(btn_connetti1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_connettiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_connettiActionPerformed
-        String messaggio = "a;" + txt_nome.getText();
+    private void btn_connetti1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_connetti1ActionPerformed
+        String messaggio = "a;" + lbl_nome.getText();
         byte buffer[] = messaggio.getBytes();
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         try {
@@ -130,11 +127,9 @@ public class Connessione extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Connessione.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btn_connettiActionPerformed
+    }//GEN-LAST:event_btn_connetti1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public int messaggio(String mex, boolean controllo) {
         int azione = -1;
         if (controllo == true) {
@@ -147,9 +142,12 @@ public class Connessione extends javax.swing.JFrame {
     }
 
     public String getNome() {
-        return txt_nome.getText();
+        return lbl_nome.getText();
     }
-
+    
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -180,7 +178,7 @@ public class Connessione extends javax.swing.JFrame {
                 new Connessione().setVisible(true);
                 ThRicevi th_ricevi;
                 try {
-                    condivisa = new Condivisa(1500, 12346, 12345);
+                    condivisa = new Condivisa(1500, 12345, 12346);
                     th_ricevi = new ThRicevi(condivisa);
                     th_ricevi.start();
                 } catch (SocketException ex) {
@@ -191,11 +189,11 @@ public class Connessione extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_connetti;
+    private javax.swing.JButton btn_connetti1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_connettiti;
+    private javax.swing.JLabel lbl_nome;
     private javax.swing.JTextField txt_ip;
-    private javax.swing.JTextField txt_nome;
     // End of variables declaration//GEN-END:variables
 }
