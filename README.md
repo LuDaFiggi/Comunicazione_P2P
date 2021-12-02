@@ -4,7 +4,7 @@ PROTOCOLLO DI COMUNICAZIONE
 Apertura
 fase1:
 	a;NOME_MITTENTE;  
-	( chiamata NON bloccante)
+	(chiamata NON bloccante)
 
 fase2:	
 se posso/voglio accettare la connessione ->	
